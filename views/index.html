@@ -2,36 +2,27 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="A cool thing made with Glitch">
-		<title>Welcome to Glitch!</title>
-		<link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
-		<!-- Import the webpage's stylesheet -->
+		<title>Knightmate</title>
+		<meta name="description" content="An implementation of the chess variant Knightmate">
+
+		<!-- Import public links -->
 		<link rel="stylesheet" href="/style.css">
-		<!-- import the webpage's client-side javascript file -->
-		<script src="/script.js" defer></script>
+		<!--script src="/script.js" defer></script-->
 	</head>
 
 	<body>
 		<header>
-			<h1>A Dream of the Future</h1>
+			<h1>Knightmate</h1>
+			<h2>A chess variant where you must checkmate the Knight instead of the King</h2>
 		</header>
 		<main>
-			<h2>Oh hi,</h2>
-			<p>Tell me your hopes and dreams:</p>
-			<form>
-				<label>
-					New Dream
-					<input name="dream" type="text" maxlength="100" required placeholder="Dreams!">
-				</label>
-				<button type="submit" id="submit-dream">Add Dream</button>
-			</form>
-			<section class="dreams">
-				<ul id="dreams">
-					<em>loading dreams&hellip;</em>
-				</ul>
-			</section>
+			<button onclick="window.location.href='/knightmate-offline'">PLAY OFFLINE</button>
+			<p>I'm gonna add online playing at some point</p>
+
+			<h2>Credits</h2>
+			<p><a href="https://github.com/jhlywa/chess.js">chess.js</a> for the internal chess logic. <del>Check out <a href="https://github.com/thearst3rd/knightmate-glitch">this project's GitHub page</a> for the modified sources that allow Knightmate logic</del> (when I get around to it).</p>
+			<p><a href="https://chessboardjs.com/">chessboard.js</a> for the chessboard rendering and piece dragging</p>
+			<p>Chess pieces are the "gioco" theme by sadsnake1, taken from the <a href="https://lichess.org">lichess.org</a> repository. More information can be found <a href="https://github.com/ornicar/lila/blob/master/COPYING.md">here.</a></p>
 		</main>
 		<footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
 		<div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>

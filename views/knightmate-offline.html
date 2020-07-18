@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Knightmate</title>
+		<meta name="description" content="An implementation of the chess variant Knightmate">
+
+		<!-- jQuery -->
+		
+
+		<!-- Import public links -->
+		<link rel="stylesheet" href="/style.css">
+		<script src="/knightmate-offline-bundle.js" defer></script>
+
+		<!-- Import chessboardjs from local files -->
+		<link rel="stylesheet" href="/chessboard.css">
+	</head>
+
+	<body>
+		<header>
+			<h1>Knightmate</h1>
+			<h2>A chess variant where you must checkmate the Knight instead of the King</h2>
+			<h4>...note that right now, it's just normal chess</h4>
+		</header>
+		<main>
+			<button onclick="window.location.href='/'">BACK HOME</button>
+
+			<div id="myBoard" style="width: 400px"></div>
+			<label>Status:</label>
+			<div id="status"></div>
+			<label>FEN:</label>
+			<div id="fen"></div>
+			<label>PGN:</label>
+			<div id="pgn"></div>
+		</main>
+	</body>
+</html>
