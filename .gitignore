@@ -1,3 +1,6 @@
+# Ignore the bundles, which should be compiled instead
+public/*bundle.js
+
 ### REST OF THIS FILE TAKEN FROM:
 ### https://github.com/github/gitignore/blob/master/Node.gitignore
 

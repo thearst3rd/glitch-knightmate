@@ -4,7 +4,8 @@
   "description": "An implementation of the Chess variant Knightmate",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "make-bundles": "browserify src/script-knightmate-offline.js -o public/knightmate-offline-bundle.js"
   },
   "dependencies": {
     "express": "^4.17.1",
