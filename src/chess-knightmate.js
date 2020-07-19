@@ -816,25 +816,15 @@ var Chess = function(fen) {
       }
     }
 
-    /* k vs. k */
+    /*
+     * Note from thearst3rd: It appears that ALL other combinations (N vs. N+K, N vs. N+B, N vs. N+R) are checkmateable.
+     * It seems unlikely that some of them will ever occur, as most likely that the enemy knight will always be able to
+     * move to squares that will avoid the mate, however there are positions in which there are checkmates against all
+     * pieces.
+     */
+    /* N vs. N */
     if (num_pieces === 2) {
       return true
-    } else if (
-      /* k vs. kn .... or .... k vs. kb */
-      num_pieces === 3 &&
-      (pieces[BISHOP] === 1 || pieces[KNIGHT] === 1)
-    ) {
-      return true
-    } else if (num_pieces === pieces[BISHOP] + 2) {
-      /* kb vs. kb where any number of bishops are all on the same color */
-      var sum = 0
-      var len = bishops.length
-      for (var i = 0; i < len; i++) {
-        sum += bishops[i]
-      }
-      if (sum === 0 || sum === len) {
-        return true
-      }
     }
 
     return false

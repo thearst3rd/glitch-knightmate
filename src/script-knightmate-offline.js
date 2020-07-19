@@ -3,6 +3,7 @@
 
 const { Chess } = require("./chess-knightmate")
 const { Chessboard } = require("./chessboard")
+const $ = require("jquery")
 
 let board = null
 const game = new Chess()
@@ -24,6 +25,9 @@ function onDragStart(source, piece, position, orientation)
 	{
 		return false
 	}
+
+	$('#myBoard .square-55d63').removeClass('highlight1-32417')
+	$('#myBoard .square-55d63').removeClass('highlight2-9c5d2')
 }
 
 function onDrop(source, target)
@@ -77,10 +81,18 @@ function updateStatus()
 	//pgn.innerText = game.pgn()
 }
 
-const config = {
+function removeDefaultHighlighting()
+{
+	$('#myBoard .square-55d63').removeClass('highlight1-32417')
+	$('#myBoard .square-55d63').removeClass('highlight2-9c5d2')
+}
+
+const config =
+{
 	draggable: true,
 	position: game.fen(),
 	onDragStart: onDragStart,
+	onDragMove: removeDefaultHighlighting,
 	onDrop: onDrop,
 	onSnapEnd: onSnapEnd,
 	pieceTheme: 'img/chesspieces/cburnett-knightmate/{piece}.svg'
