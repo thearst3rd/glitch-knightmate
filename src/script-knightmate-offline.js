@@ -11,6 +11,11 @@ const status = $("#status")
 //const fen = $("#fen")
 //const pgn = $("#pgn")
 
+document.getElementById("myBoard").addEventListener("touchmove", function(e)
+{
+	e.preventDefault()
+}, false)
+
 function onDragStart(source, piece, position, orientation)
 {
 	// Do not pick up pieces if the game is over
