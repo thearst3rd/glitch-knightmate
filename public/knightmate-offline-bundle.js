@@ -10916,7 +10916,7 @@ var Chess = function(fen) {
   var SYMBOLS = 'pnbrqkPNBRQK'
 
   var DEFAULT_POSITION =
-    'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    'rkbqnbkr/pppppppp/8/8/8/8/PPPPPPPP/RKBQNBKR w KQkq - 0 1'
 
   var POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*']
 
@@ -11026,7 +11026,7 @@ var Chess = function(fen) {
   }
 
   var board = new Array(128)
-  var kings = { w: EMPTY, b: EMPTY }
+  var knights = { w: EMPTY, b: EMPTY }
   var turn = WHITE
   var castling = { w: 0, b: 0 }
   var ep_square = EMPTY
@@ -11051,7 +11051,7 @@ var Chess = function(fen) {
     }
 
     board = new Array(128)
-    kings = { w: EMPTY, b: EMPTY }
+    knights = { w: EMPTY, b: EMPTY }
     turn = WHITE
     castling = { w: 0, b: 0 }
     ep_square = EMPTY
@@ -11337,17 +11337,17 @@ var Chess = function(fen) {
 
     var sq = SQUARES[square]
 
-    /* don't let the user place more than one king */
+    /* don't let the user place more than one knight */
     if (
-      piece.type == KING &&
-      !(kings[piece.color] == EMPTY || kings[piece.color] == sq)
+      piece.type == KNIGHT &&
+      !(knights[piece.color] == EMPTY || knights[piece.color] == sq)
     ) {
       return false
     }
 
     board[sq] = { type: piece.type, color: piece.color }
-    if (piece.type === KING) {
-      kings[piece.color] = sq
+    if (piece.type === KNIGHT) {
+      knights[piece.color] = sq
     }
 
     update_setup(generate_fen())
@@ -11358,8 +11358,8 @@ var Chess = function(fen) {
   function remove(square) {
     var piece = get(square)
     board[SQUARES[square]] = null
-    if (piece && piece.type === KING) {
-      kings[piece.color] = EMPTY
+    if (piece && piece.type === KNIGHT) {
+      knights[piece.color] = EMPTY
     }
 
     update_setup(generate_fen())
@@ -11396,7 +11396,7 @@ var Chess = function(fen) {
         board[from].type === PAWN &&
         (rank(to) === RANK_8 || rank(to) === RANK_1)
       ) {
-        var pieces = [QUEEN, ROOK, BISHOP, KNIGHT]
+        var pieces = [QUEEN, ROOK, BISHOP, KING]
         for (var i = 0, len = pieces.length; i < len; i++) {
           moves.push(build_move(board, from, to, flags, pieces[i]))
         }
@@ -11494,37 +11494,37 @@ var Chess = function(fen) {
     /* check for castling if: a) we're generating all moves, or b) we're doing
      * single square move generation on the king's square
      */
-    if (!single_square || last_sq === kings[us]) {
+    if (!single_square || last_sq === knights[us]) {
       /* king-side castling */
       if (castling[us] & BITS.KSIDE_CASTLE) {
-        var castling_from = kings[us]
+        var castling_from = knights[us]
         var castling_to = castling_from + 2
 
         if (
           board[castling_from + 1] == null &&
           board[castling_to] == null &&
-          !attacked(them, kings[us]) &&
+          !attacked(them, knights[us]) &&
           !attacked(them, castling_from + 1) &&
           !attacked(them, castling_to)
         ) {
-          add_move(board, moves, kings[us], castling_to, BITS.KSIDE_CASTLE)
+          add_move(board, moves, knights[us], castling_to, BITS.KSIDE_CASTLE)
         }
       }
 
       /* queen-side castling */
       if (castling[us] & BITS.QSIDE_CASTLE) {
-        var castling_from = kings[us]
+        var castling_from = knights[us]
         var castling_to = castling_from - 2
 
         if (
           board[castling_from - 1] == null &&
           board[castling_from - 2] == null &&
           board[castling_from - 3] == null &&
-          !attacked(them, kings[us]) &&
+          !attacked(them, knights[us]) &&
           !attacked(them, castling_from - 1) &&
           !attacked(them, castling_to)
         ) {
-          add_move(board, moves, kings[us], castling_to, BITS.QSIDE_CASTLE)
+          add_move(board, moves, knights[us], castling_to, BITS.QSIDE_CASTLE)
         }
       }
     }
@@ -11653,7 +11653,7 @@ var Chess = function(fen) {
   }
 
   function king_attacked(color) {
-    return attacked(swap_color(color), kings[color])
+    return attacked(swap_color(color), knights[color])
   }
 
   function in_check() {
@@ -11757,7 +11757,7 @@ var Chess = function(fen) {
   function push(move) {
     history.push({
       move: move,
-      kings: { b: kings.b, w: kings.w },
+      knights: { b: knights.b, w: knights.w },
       turn: turn,
       castling: { b: castling.b, w: castling.w },
       ep_square: ep_square,
@@ -11788,9 +11788,9 @@ var Chess = function(fen) {
       board[move.to] = { type: move.promotion, color: us }
     }
 
-    /* if we moved the king */
-    if (board[move.to].type === KING) {
-      kings[board[move.to].color] = move.to
+    /* if we moved the knight */
+    if (board[move.to].type === KNIGHT) {
+      knights[board[move.to].color] = move.to
 
       /* if we castled, move the rook next to the king */
       if (move.flags & BITS.KSIDE_CASTLE) {
@@ -11868,7 +11868,7 @@ var Chess = function(fen) {
     }
 
     var move = old.move
-    kings = old.kings
+    knights = old.knights
     turn = old.turn
     castling = old.castling
     ep_square = old.ep_square
@@ -14614,8 +14614,8 @@ const { Chessboard } = require("./chessboard")
 let board = null
 const game = new Chess()
 const status = document.getElementById("status")
-const fen = document.getElementById("fen")
-const pgn = document.getElementById("pgn")
+//const fen = document.getElementById("fen")
+//const pgn = document.getElementById("pgn")
 
 function onDragStart(source, piece, position, orientation)
 {
@@ -14680,8 +14680,8 @@ function updateStatus()
 	}
 
 	status.innerText = statusText
-	fen.innerText = game.fen()
-	pgn.innerText = game.pgn()
+	//fen.innerText = game.fen()
+	//pgn.innerText = game.pgn()
 }
 
 const config = {
@@ -14690,7 +14690,7 @@ const config = {
 	onDragStart: onDragStart,
 	onDrop: onDrop,
 	onSnapEnd: onSnapEnd,
-	pieceTheme: 'img/chesspieces/gioco/{piece}.svg'
+	pieceTheme: 'img/chesspieces/cburnett-knightmate/{piece}.svg'
 }
 
 board = Chessboard("myBoard", config)

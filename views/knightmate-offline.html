@@ -5,9 +5,6 @@
 		<title>Knightmate</title>
 		<meta name="description" content="An implementation of the chess variant Knightmate">
 
-		<!-- jQuery -->
-		
-
 		<!-- Import public links -->
 		<link rel="stylesheet" href="/style.css">
 		<script src="/knightmate-offline-bundle.js" defer></script>
@@ -20,18 +17,32 @@
 		<header>
 			<h1>Knightmate</h1>
 			<h2>A chess variant where you must checkmate the Knight instead of the King</h2>
-			<h4>...note that right now, it's just normal chess</h4>
 		</header>
 		<main>
+			<h4>Rules:</h4>
+			<p>The rules are the same as normal chess, with the following exceptions:</p>
+			<ul>
+				<li>The two Kings are replaced with Knights</li>
+				<li>The four Knights are replaced with Kings</li>
+				<li>The <b>Knights</b> are the pieces that hold "royal power", a.k.a. can be put in check/checkmate</li>
+				<li>The Kings can be captured like normal pieces</li>
+				<li>Pawns can promote to King, but not Knight</li>
+				<li>Castling works normally, but with a Knight instead of a King</li>
+			</ul>
+
 			<button onclick="window.location.href='/'">BACK HOME</button>
 
 			<div id="myBoard" style="width: 400px"></div>
-			<label>Status:</label>
-			<div id="status"></div>
-			<label>FEN:</label>
-			<div id="fen"></div>
-			<label>PGN:</label>
-			<div id="pgn"></div>
+			<!--<label>Status:</label>-->
+			<h3><div id="status"></div></h3>
+
+			<p><b>NOTE:</b> Currently, pawns auto-promote to a Queen. I will add a selection to choose which piece to promote soon.</p>
+			<!--
+				<label>FEN:</label>
+				<div id="fen"></div>
+				<label>PGN:</label>
+				<div id="pgn"></div>
+			-->
 		</main>
 	</body>
 </html>

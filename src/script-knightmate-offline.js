@@ -7,8 +7,8 @@ const { Chessboard } = require("./chessboard")
 let board = null
 const game = new Chess()
 const status = document.getElementById("status")
-const fen = document.getElementById("fen")
-const pgn = document.getElementById("pgn")
+//const fen = document.getElementById("fen")
+//const pgn = document.getElementById("pgn")
 
 function onDragStart(source, piece, position, orientation)
 {
@@ -73,8 +73,8 @@ function updateStatus()
 	}
 
 	status.innerText = statusText
-	fen.innerText = game.fen()
-	pgn.innerText = game.pgn()
+	//fen.innerText = game.fen()
+	//pgn.innerText = game.pgn()
 }
 
 const config = {
@@ -83,7 +83,7 @@ const config = {
 	onDragStart: onDragStart,
 	onDrop: onDrop,
 	onSnapEnd: onSnapEnd,
-	pieceTheme: 'img/chesspieces/gioco/{piece}.svg'
+	pieceTheme: 'img/chesspieces/cburnett-knightmate/{piece}.svg'
 }
 
 board = Chessboard("myBoard", config)
