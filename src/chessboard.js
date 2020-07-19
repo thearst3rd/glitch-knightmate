@@ -1312,7 +1312,7 @@ const $ = require("jquery")
 		if (source !== 'spare') {
 		  // highlight the source square and hide the piece
 		  $('#' + squareElsIds[source])
-			//.addClass(CSS.highlight1) <- commented out by thearst3rd
+			.addClass(CSS.highlight1)
 			.find('.' + CSS.piece)
 			.css('display', 'none')
 		}

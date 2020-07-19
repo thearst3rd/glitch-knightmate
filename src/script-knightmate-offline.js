@@ -7,9 +7,9 @@ const $ = require("jquery")
 
 let board = null
 const game = new Chess()
-const status = document.getElementById("status")
-//const fen = document.getElementById("fen")
-//const pgn = document.getElementById("pgn")
+const status = $("#status")
+//const fen = $("#fen")
+//const pgn = $("#pgn")
 
 function onDragStart(source, piece, position, orientation)
 {
@@ -28,6 +28,28 @@ function onDragStart(source, piece, position, orientation)
 
 	$('#myBoard .square-55d63').removeClass('highlight1-32417')
 	$('#myBoard .square-55d63').removeClass('highlight2-9c5d2')
+}
+
+function onDragMove(newLocation, oldLocation, source, piece, position, orientation)
+{
+	const moves = game.moves(
+	{
+		square: source,
+		verbose: true
+	})
+
+	let found = false
+	for (let i = 0; i < moves.length; i++)
+	{
+		if (moves[i].to === newLocation)
+		{
+			found = true
+			break
+		}
+	}
+
+	if (!found)
+		removeDefaultHighlighting();
 }
 
 function onDrop(source, target)
@@ -76,15 +98,15 @@ function updateStatus()
 		}
 	}
 
-	status.innerText = statusText
-	//fen.innerText = game.fen()
-	//pgn.innerText = game.pgn()
+	status.text(statusText)
+	//fen.text(game.fen())
+	//pgn.text(game.pgn())
 }
 
 function removeDefaultHighlighting()
 {
-	$('#myBoard .square-55d63').removeClass('highlight1-32417')
-	$('#myBoard .square-55d63').removeClass('highlight2-9c5d2')
+	//$("#myBoard .square-55d63").removeClass("highlight1-32417")
+	$("#myBoard .square-55d63").removeClass("highlight2-9c5d2")
 }
 
 const config =
@@ -92,7 +114,7 @@ const config =
 	draggable: true,
 	position: game.fen(),
 	onDragStart: onDragStart,
-	onDragMove: removeDefaultHighlighting,
+	onDragMove: onDragMove,
 	onDrop: onDrop,
 	onSnapEnd: onSnapEnd,
 	pieceTheme: 'img/chesspieces/cburnett-knightmate/{piece}.svg'
@@ -101,3 +123,5 @@ const config =
 board = Chessboard("myBoard", config)
 
 updateStatus()
+
+$("#flipButton").on("click", board.flip)
