@@ -6,7 +6,7 @@ const { Chessboard } = require("./chessboard")
 const $ = require("jquery")
 
 let board = null
-const game = new Chess()
+let game = new Chess()
 const status = $("#status")
 const fen = $("#fen")
 const pgn = $("#pgn")
@@ -28,6 +28,7 @@ function initPromotion(source, target)
 	promotingTarget = target
 
 	$("#promotionSelector").css("display", "inline-block")
+	$("#resetButton").prop("disabled", true)
 
 	const turn = game.turn()
 
@@ -52,6 +53,7 @@ function promote(promotingPiece)
 
 	promoting = false
 	$("#promotionSelector").css("display", "none")
+	$("#resetButton").prop("disabled", false)
 
 	updateStatus()
 	board.position(game.fen())
@@ -152,19 +154,25 @@ function updateStatus()
 {
 	let statusText = ""
 
-	const moveColor = (game.turn() === "b") ? "Black" : "White"
-
 	if (game.in_checkmate())
 	{
-		statusText = "GAME OVER: " + moveColor + " is in checkmate."
+		statusText = "GAME OVER: " + ((game.turn() === "b") ? "White" : "Black") + " wins by checkmate."
 	}
 	else if (game.in_draw())
 	{
 		statusText = "GAME OVER: Draw"
+		if (game.in_stalemate())
+			statusText += " by stalemate."
+		else if (game.insufficient_material())
+			statusText += " by insufficient material."
+		else if (game.in_threefold_repetition())
+			statusText += " by threefold repetition."
+		else
+			statusText += "."
 	}
 	else 	// Game still in play
 	{
-		statusText = moveColor + " to move"
+		statusText = ((game.turn() === "b") ? "Black" : "White") + " to move"
 		if (game.in_check())
 		{
 			statusText += " and in check"
@@ -198,3 +206,14 @@ board = Chessboard("myBoard", config)
 updateStatus()
 
 $("#flipButton").on("click", board.flip)
+$("#resetButton").on("click", function()
+{
+	const response = confirm("Really reset and start a new game?")
+
+	if (response)
+	{
+		game = new Chess()
+		updateStatus()
+		board.position(game.fen())
+	}
+})
