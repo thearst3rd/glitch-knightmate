@@ -20,6 +20,11 @@ app.get("/knightmate-offline", (request, response) =>
 	response.sendFile(__dirname + "/views/knightmate-offline.html")
 })
 
+app.get("/knightmate-random", (request, response) =>
+{
+	response.sendFile(__dirname + "/views/knightmate-random.html")
+})
+
 // Listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () =>
 {
