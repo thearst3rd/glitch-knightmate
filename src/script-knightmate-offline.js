@@ -55,8 +55,15 @@ function promote(promotingPiece)
 	$("#promotionSelector").css("display", "none")
 	$("#resetButton").prop("disabled", false)
 
-	updateStatus()
+	finalizeMove()
+}
+
+function finalizeMove()
+{
+	// Updates the board with changed pieces from castling, en passant, promotion
 	board.position(game.fen())
+
+	updateStatus()
 }
 
 $("#promoteQueen").on("click", function() { promote("q") })
@@ -136,8 +143,6 @@ function onDrop(source, target)
 		// If the move is illegal, do not perform
 		if (move === null)
 			return "snapback"
-
-		updateStatus()
 	}
 }
 
@@ -145,8 +150,7 @@ function onSnapEnd()
 {
 	if (!promoting)
 	{
-		// Updates the board with changed pieces from castling, en passant, promotion
-		board.position(game.fen())
+		finalizeMove()
 	}
 }
 
