@@ -24,25 +24,29 @@
 			<p>The rules are the same as normal chess, with the following exceptions:</p>
 			<ul>
 				<li>The two Kings are replaced with Knights</li>
-				<li>The four Knights are replaced with Kings</li>
+				<li>The four Knights are replaced with Kings <i>(sometimes called Mann or Commoner)</i></li>
 				<li>The <b>Knights</b> are the pieces that hold "royal power", a.k.a. can be put in check/checkmate</li>
 				<li>The Kings can be captured like normal pieces</li>
 				<li>Pawns can promote to King, but not Knight</li>
 				<li>Castling works normally, but with a Knight instead of a King</li>
+				<li>Draw by insufficient material ONLY occurs on Knight vs Knight</li>
 			</ul>
 
+			<h2><div id="status"></div></h2>
 			<div id="myBoard" style="width: 400px"></div>
+			<div id="promotionSelector" style="display: none; margin: 10px; padding: 5px; background: lightgray;">
+				<b>Promote: </b>
+				<br/>
+				<button id="promoteQueen"><img src="img/chesspieces/cburnett-knightmate/wQ.svg"/></button>
+				<button id="promoteRook"><img src="img/chesspieces/cburnett-knightmate/wR.svg"/></button>
+				<button id="promoteBishop"><img src="img/chesspieces/cburnett-knightmate/wB.svg"/></button>
+				<button id="promoteKing"><img src="img/chesspieces/cburnett-knightmate/wK.svg"/></button>
+			</div>
 			<button id="flipButton">Flip Board</button>
-			<!--<label>Status:</label>-->
-			<h3><div id="status"></div></h3>
-
-			<p><b>NOTE:</b> Currently, pawns auto-promote to a Queen. I will add a selection to choose which piece to promote soon.</p>
-			<!--
-				<label>FEN:</label>
-				<div id="fen"></div>
-				<label>PGN:</label>
-				<div id="pgn"></div>
-			-->
+			<h4>Knightmate FEN:</h4>
+			<div id="fen"></div>
+			<h4>Knightmate PGN:</h4>
+			<div id="pgn"></div>
 		</main>
 	</body>
 </html>

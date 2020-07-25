@@ -41,7 +41,7 @@ var Chess = function(fen) {
   var SYMBOLS = 'pnbrqkPNBRQK'
 
   var DEFAULT_POSITION =
-    'rkbqnbkr/pppppppp/8/8/8/8/PPPPPPPP/RKBQNBKR w KQkq - 0 1'
+    'rkbqnbkr/pppppppp/8/8/8/8/PPPPPPPP/RKBQNBKR w NQnq - 0 1'
 
   var POSSIBLE_RESULTS = ['1-0', '0-1', '1/2-1/2', '*']
 
@@ -242,13 +242,14 @@ var Chess = function(fen) {
 
     turn = tokens[1]
 
-    if (tokens[2].indexOf('K') > -1) {
+    // Use N for Knight instead of K for king, but allow the Ks as well for easy copy/paste
+    if (tokens[2].indexOf('N') > -1 || tokens[2].indexOf('K') > -1) {
       castling.w |= BITS.KSIDE_CASTLE
     }
     if (tokens[2].indexOf('Q') > -1) {
       castling.w |= BITS.QSIDE_CASTLE
     }
-    if (tokens[2].indexOf('k') > -1) {
+    if (tokens[2].indexOf('n') > -1 || tokens[2].indexOf('k') > -1) {
       castling.b |= BITS.KSIDE_CASTLE
     }
     if (tokens[2].indexOf('q') > -1) {
@@ -307,7 +308,8 @@ var Chess = function(fen) {
     }
 
     /* 5th criterion: 3th field is a valid castle-string? */
-    if (!/^(KQ?k?q?|Qk?q?|kq?|q|-)$/.test(tokens[2])) {
+    // Use N for Knight instead of K for king, but allow the Ks as well for easy copy/paste
+    if (!/^([NK]Q?[nk]?q?|Q[nk]?q?|[nk]q?|q|-)$/.test(tokens[2])) {
       return { valid: false, error_number: 5, error: errors[5] }
     }
 
@@ -393,13 +395,13 @@ var Chess = function(fen) {
 
     var cflags = ''
     if (castling[WHITE] & BITS.KSIDE_CASTLE) {
-      cflags += 'K'
+      cflags += 'N'
     }
     if (castling[WHITE] & BITS.QSIDE_CASTLE) {
       cflags += 'Q'
     }
     if (castling[BLACK] & BITS.KSIDE_CASTLE) {
-      cflags += 'k'
+      cflags += 'n'
     }
     if (castling[BLACK] & BITS.QSIDE_CASTLE) {
       cflags += 'q'
