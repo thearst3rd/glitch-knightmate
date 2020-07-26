@@ -124,9 +124,20 @@ function onDrop(source, target)
 	if ((game.get(source).type === "p") && (target.charAt(1) == (game.turn() === "b" ? "1" : "8")))
 	{
 		// Check if move is legal
-		const moves = game.moves({ square: source, verbose: true})
+		const moves = game.moves({ square: source, verbose: true })
 
-		if (moves.length === 0)
+		let found = false
+		for (let i = 0; i < moves.length; i++)
+		{
+			const move = moves[i]
+			if (move.to === target)
+			{
+				found = true
+				break
+			}
+		}
+
+		if (!found)
 			return "snapback"
 
 		initPromotion(source, target)
